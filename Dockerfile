@@ -13,6 +13,7 @@ FROM node
 # now before we can run the image, I would need to specify the working directory
 # This is the directory where the commands/instructions will be executed
 # Since i decided to copy all files to the /app directory, I would set the working directory to /app
+# Agian by writing /app if there is no such folder, docker will create one.
 WORKDIR /app
 
 COPY . /app
