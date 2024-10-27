@@ -5,10 +5,10 @@ FROM node
 # Second dot is the destination directory(image/container file system)
 
 # Would be better to place it all in a folder with a name like /app hence I would write:
+    #COPY . /app
 # BASICALLY it tells docker to copy all files and folders in the current directory to the /app directory
 # if there is no /app directory, docker will create one
 
-#COPY . /app
 
 # now before we can run the image, I would need to specify the working directory
 # This is the directory where the commands/instructions will be executed
@@ -22,7 +22,8 @@ RUN npm install
 
 # Now I would expose the port that the application is running on. 
 # Although the port is specified in the application code, I would still need to expose it in the Dockerfile
-# Because the container is isolated from the host machine and other containers, I would need to manually expose the port to the host machine
+# Because the container is isolated from the host machine and other containers,
+# I would need to manually expose the port to the host machine
 EXPOSE 80
 # Now I would run the npm start command to start the application.
 # CMD command is used to run the application, and should always be the last command in the Dockerfile.
