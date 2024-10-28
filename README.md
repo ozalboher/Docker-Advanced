@@ -36,9 +36,9 @@ VOLUME [ "/app/data" ]
 ## And anonymous volume data will not be kept after container is DELETED(not stopped), so we need to use NAMED VOLUMES, which will need to be specified also in the terminal when creating the container -> in the docker run command.
 ## it should be noted that anonymous VOLUME will technically only be deleted when we run the container with --rm flag. But if we do not run the container with --rm flag, and delete the container afterwise with docker rm container_name, the anonymous volume will still be there. But it won't really do any good, since if we do docker run again with the same image, it will just create a new unrelated anonymous volume, and the old one will be left there, unused.
 
-## Named volumes are created with the -v flag, then the name for the volume, and then the path where the file/folder I want to mount onto the volume.
+## Named volumes are created with the -v flag, then the name for the volume, and then the path where the folder I want to mount onto the volume.
 ```bash
-docker run -v my-volume:/app/some_folder_or_file 
+docker run -v my-volume:/app/some_folder
 ```
 
 # Bind Mounts:
@@ -66,3 +66,39 @@ docker run -d -p 8080:80 --rm --name containerName -v "absolute_app_path:/app" -
 ## So now we have the app data binded & mounted to the host file system, and the node_modules folder is stored in an anonymous volume, so it is not overwritten by the bind mount. Using both anonymous volumes and bind mounts is called merging volumes. 
 ## Note that by merging volumes, Docker maintains clashes between the bind mount and the anonymous volume by giving priority to the bind mount(cuz its the largest). So if there is a file in the bind mount and the anonymous volume with the same name, the file in the bind mount will be used. but if the file is NOT in the bind mount, then the file in the anonymous volume will be used. hence the node_modules folder will be used from the anonymous volume, and the rest of the app data will be used from the bind mount.
 ## If I want to live update the server.js file I might need to consider using nodemon.
+## We might wanna consider making the binded volume read-only, so the running container can't mess with the app only I can manually change code/files. This is done by adding the :ro flag at the end of the bind mount command.
+```bash
+-v "absolute_app_path:/app:ro" 
+```
+## And to still keep like a certain folder to be readable and writable by the container, we can create a 3rd volume as a Named Volume for that purpose:
+```bash
+docker run -d -p 8080:80 --rm --name containerName -v "absolute_app_path:/app:ro" -v /app/node_modules imageName -v my-volume:/app/some_folder
+```
+## And we can add a 4th volume for the temp folder, that can be an anonymous volume, since it is not needed after the container is deleted.
+## And in this case because there are already a couple of different volumes in-use, the anonymouse volume will also be added to the terminal command and NOT in the Dockerfile.
+
+
+# Summary of Docker Volumes: 
+1. Anonymous Volumes: Created by writing VOLUME command in the Dockerfile. Will be deleted when the container is deleted.
+   They are good for outsourcing temporary data that is not needed after the container is deleted, but can still offload the data from the container to the host file system. 
+2. Named Volumes: Created by using the -v flag in the docker run command only. Will not be deleted when the container is deleted.
+3. Bind Mounts: Created by using the -v flag in the docker run command only. Will not be deleted when the container is deleted. 
+   But here we can specify exact files to be binded from the host file system to the container file system. Typical use case - live data.
+
+# Docker Volume Inspection:
+## To inspect the volumes that are created, we can use the docker volume ls command.
+```bash
+docker volume ls
+```
+## To inspect a specific volume, we can use the docker volume inspect command.
+```bash
+docker volume inspect volume_name
+```
+## Under "Mountpoint" we can see the path where the volume is stored, It should be noted that this path will not be accessible from the host file system, it is in a virtual machine docker creates to run the containers.
+## Under "Options" we can see if the volume is read-only or not.
+
+## TO REMOVE A VOLUME:
+```bash
+docker volume rm volume_name
+```
+## If the volume is in use by a container, it will not be removed. So we need to remove the container first, and then remove the volume.
