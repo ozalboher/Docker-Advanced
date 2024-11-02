@@ -1,5 +1,41 @@
 # Docker-Advanced
 
+# **DETACHED & ATTACHED MODE:**
+
+## 1. When using 'docker start' to start a container, it will run in DETACHED mode by default.
+## 2. When using 'docker run' to start a container, it will run in ATTACHED mode by default. (But with adding -d will make it detached).
+
+## The difference between detached and attached is the output of the container. In detached mode, the output will NOT be shown in the terminal.
+## In attach mode, the output WILL be shown in the terminal. Even though real-time output is shown, what about input? can I interact with the terminal/container? The answer is: Yes but only if you run the container in INTERACTIVE mode, using the -i and -t flags. 
+## -i flag for enabling interactive mode, -t flag for enabling terminal mode.
+```bash 
+docker run -it ubuntu
+```
+# Delete Containers: 
+```bash
+docker rm container1 container2
+```
+# Delete Images:
+```bash
+docker rmi imageID1 imageID2
+```
+## Image can't be removed when a container is associated to it, doesn't matter if that container is on run or stop. 
+# Start a container with --rm to delete it as soon as it stops. 
+
+
+# **COPY TO CONTAINER:**
+## Copying files to and from containers is useful for pulling out logs or copying in a new configuration file. 
+
+# Copy files host to container:
+# specify the src folder+file(or all with `.`) and then the dst folder/file.
+```bash
+docker cp folder/. containerID:/folder
+```
+# Copy files container to host:
+# specify the src folder+file(or all with `.`) and then the dst folder/file.
+```bash
+docker cp containerID:/folder/. folder
+```
 # Difrences between Docker run and Docker start: 
 
 ## The code below will CREATE a new container from the image and START it.
