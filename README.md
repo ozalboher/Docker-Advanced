@@ -138,3 +138,4 @@ docker volume inspect volume_name
 docker volume rm volume_name
 ```
 ## If the volume is in use by a container, it will not be removed. So we need to remove the container first, and then remove the volume.
+
