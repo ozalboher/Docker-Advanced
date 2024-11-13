@@ -53,4 +53,9 @@ mongoose.connect(
 ```bash
 docker run --name serverContainerName --network mynetwork -d --rm -p 3000:3000 serverImageName
 ```
-* It should be noted that once this container is connected to a network we can run it without exposing the port to the host machine, as the serverContainerName is connected to the network and can communicate with the mongodb container. So you can delete the "-p 3000:3000" flag from the run command.
+# SUMMARY:
+* It is vital to understand the 3 ways a container can establish a connection outside of it:
+1. Requests to web servers/api via WWW url - always possible.
+2. Requests to the local host machine via: host.docker.internal
+3. Cross-Container Requests via the container IP or even better, with the container name (as long as it's configured in the same network as the other container it is communicating with). 
+## At the end of each process docker will do the IP resolving technology, that will reach the target of the request, of what is called - Docker Ip resolver.
