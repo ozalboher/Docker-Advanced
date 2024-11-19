@@ -4,8 +4,9 @@ WORKDIR /app
 
 COPY package.json .
 
-# This is to avoid SSL error while installing npm packages
-RUN npm config set strict-ssl false
+# Type This is to avoid SSL error while installing npm packages:
+
+# RUN npm config set strict-ssl false
 
 RUN npm install
 
