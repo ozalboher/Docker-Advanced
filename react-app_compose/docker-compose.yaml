@@ -1,0 +1,18 @@
+services:
+  mongodb:
+    image: mongo
+    #volumes:
+    #  - mongodb_data:/data/db
+    # environment:
+    #MONGO_INITDB_ROOT_USERNAME: root
+    #MONGO_INITDB_ROOT_PASSWORD: example
+    env_file:
+      - ./env/mongo.env
+    networks:
+      - mynetwork
+  #backend:
+  #frontend:
+volumes:
+  mongodb_data: 
+networks:
+  mynetwork:
