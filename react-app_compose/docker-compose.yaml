@@ -8,11 +8,23 @@ services:
     #MONGO_INITDB_ROOT_PASSWORD: example
     env_file:
       - ./env/mongo.env
-    networks:
-      - mynetwork
-  #backend:
+    #networks:
+    # - mynetwork
+    volumes:
+      - mongodb_data:/data/db
+  backend:
+    build: ./backend
+    ports:
+      - '80:80'
+    volumes:
+      - logs:/app/logs # a named volume to store logs
+      - ./backend:/app # mount the backend code as a BIND MOUNT (here i dont need the absolute path)
+      - /app/node_modules # mount the node_modules as an anonymous volume(anonymous volumes like bind mounts will not need to be defined in the root level inside volumes key).
+    env_file:
+      - ./env/backend.env
   #frontend:
 volumes:
-  mongodb_data: 
-networks:
-  mynetwork:
+  logs:
+  mongodb_data:
+#networks:
+# mynetwork:
