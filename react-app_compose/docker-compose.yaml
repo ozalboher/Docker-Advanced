@@ -22,9 +22,18 @@ services:
       - /app/node_modules # mount the node_modules as an anonymous volume(anonymous volumes like bind mounts will not need to be defined in the root level inside volumes key).
     env_file:
       - ./env/backend.env
-  #frontend:
+  frontend:
+    build: ./frontend
+    ports:
+      -'3000:3000'
+    volumes:
+      - ./frontend/src:/app/src
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
 volumes:
   logs:
   mongodb_data:
 #networks:
-# mynetwork:
+#mynetwork:
