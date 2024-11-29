@@ -69,3 +69,4 @@ services:
 # We learned that in order to run a react app in a container, we need a to run the container in interactive mode with the ' -it ' flag. Here in Docker Compose, you can add a configuration to make the input accesable with:
 - stdin_open: true  //will "open input" ( -i interactive)
 - tty: true // will attach the terminal to the open input (-t terminal)
+
