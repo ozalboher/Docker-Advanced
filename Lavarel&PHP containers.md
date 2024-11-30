@@ -59,3 +59,28 @@ services:
 - The php is set to use with a port configuration of 9000. I will not added to the yaml, but instead to the default.conf file in the nginx folder.
 - The volume is set to bind the source code folder to the container's working directory.
 - So make sure to create a src folder in the root directory to hold the php files.
+
+# The COMPOSER container(utility):
+
+- Create a dockerfile called composer.dockerfile in the dockerfiles folder.
+```dockerfile
+FROM composer:latest
+WORKDIR /var/www/html
+ENTRYPOINT [ "composer", "--ignore-platform-reqs" ]
+```
+- And configure the docker-compose.yml file to include the composer container:
+```yaml
+services:
+    composer:
+        build:
+            context: ./dockerfiles
+            dockerfile: dockerfiles/composer.dockerfile
+        volumes:
+            - ./src:/var/www/html
+```
+- The composer container will be used to install Laravel packages, the source code folder will be binded to the container's working directory. And every package that will be installed will be reflected back in the source code folder.
+- Now run the composer container with the following command:
+```bash
+docker-compose run --rm composer create-project --prefer-dist laravel/laravel .
+```
+- Note that the '.' means it will be installed in the root folder, and since the root folder is configured in the dockerfiler: WORKDIR /var/www/html, it will be installed in the right place. And will be reflected back in the src folder.(thanks to the bind mount)

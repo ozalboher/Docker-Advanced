@@ -10,3 +10,9 @@ docker-compose run <command>
 ```
 - the run command is mandatory to type in order to run a command in a container when using Docker Compose. instead of the usual 'docker-compose up' command.
 - Side note: when using the 'run' command, the container will not be removed automatically after it is stopped like it would with the 'docker-compose up'. So you can add the -rm flag to remove the container after it is stopped.
+
+## You can also use the 'docker-compose run' to run INDIVIDUAL container at a time. For example, if you have a docker-compose.yml file with 3 services, you can run only one of them by typing:
+```bash
+docker-compose run --rm <service-name>
+```
+- this will run only the service that you specify in the command.
