@@ -70,3 +70,9 @@ services:
 - stdin_open: true  //will "open input" ( -i interactive)
 - tty: true // will attach the terminal to the open input (-t terminal)
 
+# Force docker-compose to build the images again
+- * if an image is already built, docker-compose will not build it again. That means if I make changes to the Dockerfile, the changes will not be reflected in the image. To force docker-compose to build the images again, I can use the --build flag with the up command.
+```bash
+docker-compose up --build
+```
+- * it will still use the cach for stuff that were unchanged so it will be faster than the first time.
