@@ -32,11 +32,16 @@ docker-compose up -d # add -d for detached mode.
 ```bash
 docker-compose down -v # -v flag will remove the volumes as well.
 ```
-## Force re-build of image
-- Docker Compose will only build an image once by default, then the next time you will run 'docker-compose up' if it sees the image was already built, it will skip it. Which can be quiet useful, though in a case we would want to build it anyway we can force docker to do so with 
+# Force docker-compose to rebuild an image:
+- * if an image is already built, docker-compose will not build it again. That means if I make changes to the Dockerfile, the changes will not be reflected in the image. To force docker-compose to build the images again, I can use the --build flag with the up command.
 ```bash
 docker-compose up --build
 ```
+- * it will still use the cach for stuff that were unchanged so it will be faster than the first time.
+
+----------------------------------------------------------------------------------------------------------
+
+
 
 # Up to this point I automated with docker compose some of the commands I would typically use to build and run a mongo container, but the mongo image is already available on docker hub. so I basically did not build it only pulled it and added some running configurations.
 # What if I want to build my own image and then run it with docker compose? 
@@ -70,9 +75,3 @@ services:
 - stdin_open: true  //will "open input" ( -i interactive)
 - tty: true // will attach the terminal to the open input (-t terminal)
 
-# Force docker-compose to build the images again
-- * if an image is already built, docker-compose will not build it again. That means if I make changes to the Dockerfile, the changes will not be reflected in the image. To force docker-compose to build the images again, I can use the --build flag with the up command.
-```bash
-docker-compose up --build
-```
-- * it will still use the cach for stuff that were unchanged so it will be faster than the first time.

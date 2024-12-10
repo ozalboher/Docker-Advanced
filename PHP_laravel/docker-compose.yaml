@@ -1,5 +1,6 @@
 services:
   server:
+    container_name: server
     image: "nginx:stable-alpine"
     ports:
       - "8000:80"
@@ -13,10 +14,12 @@ services:
     build:
       context: ./dockerfiles
       dockerfile: php.dockerfile
+    container_name: php
     volumes:
       - ./src:/var/www/html:delegated
 
   mysql:
+    container_name: mysql
     image: mysql
     env_file:
       - ./env/mysql.env

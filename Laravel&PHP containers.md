@@ -12,9 +12,9 @@
 - 2. PHP interpreter container - this container will have access to the php source code folder, to be able to run the php code.
 - 3. MySQL Database container - to handle the database (MySQL is more common use case with php, though mongodb can also work)
 ## 3 utilities containers:
-- 4. Composer - for managing lavarel packages installment
-- 5. Laravel Artisan - 
-- 6. npm - some JavaScript packages will be used so we also need npm.
+- 4. Composer - for managing lavarel packages installment (like npm for node.js)
+- 5. Laravel Artisan - for running Laravel commands (like npm start for node.js)
+- 6. npm - some JavaScript packages will be used. (so we also need npm;).
 
 # 1 First let's dive in on how to build the Nginx Server container:
 
