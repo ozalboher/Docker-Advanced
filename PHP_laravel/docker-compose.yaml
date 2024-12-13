@@ -37,7 +37,7 @@ services:
       - ./src:/var/www/html
     entrypoint: ["php", "/var/www/html/artisan"]
   npm:
-    build: node:latest
+    image: node:latest
     working_dir: /var/www/html # we set it here instead of the Dockerfile(just to show it can be done here too)
     entrypoint: ["npm"]
     volumes:

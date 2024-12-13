@@ -91,7 +91,7 @@ services:
     composer:
         build:
             context: ./dockerfiles
-            dockerfile: dockerfiles/composer.dockerfile
+            dockerfile: composer.dockerfile
         volumes:
             - ./src:/var/www/html
 ```
@@ -141,7 +141,7 @@ docker-compose run --rm artisan migrate
 - The npm container should be configured as:
 ```yaml
   npm:
-    build: node:latest
+    image: node:latest
     working_dir: /var/www/html # we set it here instead of the Dockerfile(just to show it can be done here too)
     entrypoint: ["npm"]
     volumes:
