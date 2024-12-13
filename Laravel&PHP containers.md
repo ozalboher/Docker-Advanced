@@ -61,8 +61,24 @@ services:
 - The volume is set to bind the source code folder to the container's working directory.
 - So make sure to create a src folder in the root directory to hold the php files.
 
-# 3 The COMPOSER container(utility):
+# 3 The MySQL Database container:
+- In the root directory, create an 'env' folder - inside place the 'mysql.env' file. This file will hold the environment variables for the MySQL container:
+```env
+MYSQL_DATABASE=homestead
+MYSQL_USER=homestead
+MYSQL_PASSWORD=secret
+MYSQL_ROOT_PASSWORD=secret
+```
+And add the following to the docker-compose.yml file:
+```yaml
+  mysql:
+    container_name: mysql
+    image: mysql
+    env_file:
+      - ./env/mysql.env
+```
 
+# 4 The COMPOSER container(utility):
 - Create a dockerfile called composer.dockerfile in the dockerfiles folder.
 ```dockerfile
 FROM composer:latest
@@ -108,4 +124,26 @@ DB_PASSWORD=secret      # this is the password that is set in the mysql.env file
 - * Up to this point lets run only the 3 containers that we have configured so far, and see if the laravel framework is working.
 ```bash
 docker-compose up -d server php mysql
+```
+
+# 5 The Laravel Artisan container(utility): 
+- We will configure the artisan container with the same steps as the php container. (it will refrence the same php.dockerfile). But we will add an additional command run it different with the entrypoint command:
+```yaml
+    entrypoint: ["php", "/var/www/html/artisan"]
+```
+- * Before continuing to the next step type this command in the terminal:
+```bash
+docker-compose run --rm artisan migrate
+```
+- This will write some data to the database, and will make sure that the database is working properly.
+
+# 6 The npm container(utility):
+- The npm container should be configured as:
+```yaml
+  npm:
+    build: node:latest
+    working_dir: /var/www/html # we set it here instead of the Dockerfile(just to show it can be done here too)
+    entrypoint: ["npm"]
+    volumes:
+      - ./src:/var/www/htmlb 
 ```
