@@ -1,3 +1,7 @@
+# Setting up a nginx proxy/server that relies on PHP and Laravel containers.
+- In most cases of a large app with a lot of traffic nginx will help distribute the workload and handle SSL certificates. So, Nginx and Node.js often work together—Nginx as a proxy and server for static content and Node.js for dynamic content.
+# DISCLAIMER: This tutorial will be covering the steps to set-up a *development* environment for nginx(php and laravel) and node.js containers. For a production environment the steps will be a little different mainly without the bind mount volumes, that are been set up here to make it easier to develop and test the code live with changes.
+
 # Laravel and PHP
 
 - For containers using a PHP language server, you also need to install Laravel.
