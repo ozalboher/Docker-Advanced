@@ -37,4 +37,4 @@ EXPOSE $PORT
 ```bash
 docker build --build-arg DEFAULT_PORT=8080 -t <image> .
 ```
-## NOTE that ARG & ENV are stuff that I may be changing more often, because they are susceptible to changes it may be a good idea to keep them last in the Dockerfile, so that the build cache will be used more efficiently.
+## NOTE that ARG & ENV are stuff that I may be changing more often, because they are susceptible to changes it may be a good idea to *keep them last in the Dockerfile*, so that the build cache will be used more efficiently.

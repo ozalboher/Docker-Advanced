@@ -9,4 +9,9 @@
   ```Dockerfile
     ENTRYPOINT ["npm"]
   ```
-- Now when I run the container with the command "install" it will be added to the ENTRYPOINT command and the full command will be "npm install". so now further on commands that needs the npm word in front will be shortened. I can type "start" and it will be "npm start" and so on.
+- Now when I run the container with the command "install" it will be added to the ENTRYPOINT command and the full command will be "npm install". so now further on commands that needs the npm word in front will be shortened. I can type "start" and it will be "npm start" and so on. 
+For example, if I would want to run the container with the "npm install" command I can shorten the command:
+
+  ```Dockerfile
+    CMD ["install"]
+  ```
