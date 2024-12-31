@@ -1,6 +1,5 @@
 services:
   server:
-    container_name: ngnixContainer
     image: "nginx:stable-alpine"
     ports:
       - "8000:80"
@@ -11,27 +10,22 @@ services:
       - php
       - mysql
   php:
-    container_name: phpContainer
     build:
       context: ./dockerfiles
       dockerfile: php.dockerfile
     volumes:
-      - ./src:/var/www/html:delegated
-
+      - ./src:/var/www/html
   mysql:
-    container_name: mysqlContainer
-    image: mysql
+    image: mysql:5.7
     env_file:
       - ./env/mysql.env
   composer:
-    container_name: composerContainer
     build:
       context: ./dockerfiles
       dockerfile: composer.dockerfile
     volumes:
       - ./src:/var/www/html
   artisan:
-    container_name: artisanContainer
     build:
       context: ./dockerfiles
       dockerfile: php.dockerfile # this is the same dockerfile as the php service, cuz it uses the same image + commands
@@ -39,7 +33,6 @@ services:
       - ./src:/var/www/html
     entrypoint: ["php", "/var/www/html/artisan"]
   npm:
-    container_name: npmContainer
     image: node:latest
     working_dir: /var/www/html # we set it here instead of the Dockerfile(just to show it can be done here too)
     entrypoint: ["npm"]
