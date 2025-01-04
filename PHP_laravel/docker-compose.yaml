@@ -11,8 +11,8 @@ services:
       - mysql
   php:
     build:
-      context: ./dockerfiles
-      dockerfile: php.dockerfile
+      context: .
+      dockerfile: ./dockerfiles/php.dockerfile
     volumes:
       - ./src:/var/www/html
   mysql:
@@ -21,14 +21,14 @@ services:
       - ./env/mysql.env
   composer:
     build:
-      context: ./dockerfiles
-      dockerfile: composer.dockerfile
+      context: .
+      dockerfile: ./dockerfiles/composer.dockerfile
     volumes:
       - ./src:/var/www/html
   artisan:
     build:
-      context: ./dockerfiles
-      dockerfile: php.dockerfile # this is the same dockerfile as the php service, cuz it uses the same image + commands
+      context: .
+      dockerfile: ./dockerfiles/php.dockerfile # this is the same dockerfile as the php service, cuz it uses the same image + commands
     volumes:
       - ./src:/var/www/html
     entrypoint: ["php", "/var/www/html/artisan"]

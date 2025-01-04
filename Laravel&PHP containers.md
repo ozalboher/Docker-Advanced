@@ -6,7 +6,7 @@
 
 - For containers using a PHP language server, you also need to install Laravel.
 - Laravel is a PHP framework that is used to build web applications.
-- Unlike node that which is the framework + language in one.
+- Unlike node which is the framework + language in one.
 - Managing package installations will be done with something called 'COMPOSER'. which is the equivilant for npm (node package manager)
 
 # Target setup:
@@ -151,3 +151,7 @@ docker-compose run --rm artisan migrate
     volumes:
       - ./src:/var/www/htmlb 
 ```
+
+
+
+# this helped me when error occured : 1. type: docker-compose exec php sh 2. php /var/www/html/artisan migrate
