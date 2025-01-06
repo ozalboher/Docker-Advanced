@@ -17,9 +17,39 @@
 - 3. MySQL Database container - to handle the database (MySQL is more common use case with php, though mongodb can also work)
 ## 3 utilities containers:
 - 4. Composer - for managing lavarel packages installment (like npm for node.js)
-- 5. Laravel Artisan - for running Laravel commands (like npm start for node.js)
+- 5. Artisan - for running Laravel commands (like npm start for node.js) 
 - 6. npm - some JavaScript packages will be used. (so we also need npm;).
+# A brief summerize from GPT: 
+Nginx
+Receives HTTP requests from the browser. It forwards PHP requests to the PHP-FPM container and serves static files.
 
+PHP (FPM)
+Runs the Laravel application code. It processes incoming requests from Nginx and executes PHP scripts.
+
+MySQL
+Stores your application data (tables, rows). Laravel connects to it for data retrieval and persistence.
+
+Composer
+Installs PHP dependencies for Laravel (framework packages, libraries). Usually runs one-off commands.
+
+Artisan
+Runs Laravel’s commands (migrations, server, etc.). It’s still PHP code, but separated for convenience.
+
+npm
+Manages and builds JavaScript and CSS assets for the frontend (e.g., Laravel Mix, Webpack, Vite). It’s a separate Node-based tool.
+
+
+
+
+
+
+
+
+
+
+
+
+# Step by step guide:
 # 1 First let's dive in on how to build the Nginx Server container:
 
 - Create a new folder called 'nginx' in the root directory. and create a new file called 'default.conf' in it.(that file will hold the code for the server and the exposed port)
