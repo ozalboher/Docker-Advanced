@@ -185,3 +185,5 @@ docker-compose run --rm artisan migrate
 
 
 # this helped me when error occured : 1. type: docker-compose exec php sh 2. php /var/www/html/artisan migrate
+
+
