@@ -170,6 +170,17 @@ docker-compose up -d server php mysql
 docker-compose run --rm artisan migrate
 ```
 - This will write some data to the database, and will make sure that the database is working properly.
+- * If the artisan migrate does not work try this:
+```bash
+docker-compose run --rm artisan tinker
+```
+- then type this command in the tinker shell:
+```bash
+DB::connection()->getPdo();
+```
+- -> Now run the artisan migrate command again, and it should work.
+
+
 
 # 6 The npm container(utility):
 - The npm container should be configured as:
@@ -185,5 +196,4 @@ docker-compose run --rm artisan migrate
 
 
 # this helped me when error occured : 1. type: docker-compose exec php sh 2. php /var/www/html/artisan migrate
-
 
